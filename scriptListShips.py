@@ -109,8 +109,5 @@ for shipUrl in listUrlShips :
     tableEquipmentTd[7].getText()
     # Equipment 3 type
     tableEquipmentTd[8].getText()
-    break
-
-
-
-
+    #break
+    #TODO Get skills & Get Construction / Drops
