@@ -1,2 +1,3 @@
 # ScriptsWikiAzurLane
-Script to store informations of the Wiki of Azur Lane
+
+My first scripts in python to do parsing of html pages from the Wiki of AzurLane to store these informations in database
