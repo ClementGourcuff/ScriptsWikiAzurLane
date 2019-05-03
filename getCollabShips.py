@@ -164,5 +164,3 @@ for shipUrl in listUrlShips :
             skillDescription3 = tableSkillsTd[5].getText()
             if len(skillName3) > 3 :
                 # file.write("Skill description 3 : %s\n" % skillDescription3.encode('utf-8'))
-
-    # TODO Get Construction / Drops
