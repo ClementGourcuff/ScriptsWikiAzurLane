@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import functions
 
 file = open("test.txt","w+")
 
@@ -7,19 +8,10 @@ file = open("test.txt","w+")
 # Urls for the requests
 urlListShips = 'https://azurlane.koumakan.jp/List_of_Ships'
 baseUrlShips = 'https://azurlane.koumakan.jp'
+
 # Arrays
 listTr = []
 listUrlShips = []
-# Dictionnary for the rarity
-rarityDictionnary = {
-    "Rarity Normal.png": "Normal",
-    "Rare.png": "Rare",
-    "Elite.png": "Elite",
-    "SuperRare.png": "Super Rare",
-    "Unreleased.png": "Unreleased",
-    "Priority.png": "Priority",
-    "Decisive.png": "Decisive"
-}
 
 # Request for the list of ships
 r = requests.get(urlListShips)
@@ -50,10 +42,6 @@ for shipUrl in listUrlShips :
     # Get construction time
     shipConstructionTime = shipPage.findAll('table')[0].findAll('td')[0].getText()
 
-    # Get rarity
-    shipRarityName = rarityDictionnary[shipPage.findAll('table')[0].find('img').get('alt')]
-    #TODO On insert set id where rarityName = rarityName in rarity Table
-
     # Get id
     shipId = "C" + shipPage.findAll('table')[1].findAll('td')[0].getText()
 
@@ -76,71 +64,17 @@ for shipUrl in listUrlShips :
 
     # Get stats
     tabStats = shipPage.find('div', attrs={"style": u"padding-top:7px"}).findAll('div', attrs={"class": u"tabbertab"})
+
     for tab in tabStats :
         # Get name tab
-        tabName = tab.get('title')
+        tabName = tab.get('title').strip()
 
-        listTd = tab.find('table').findAll('td')
-
-        # Get hp
-        shipHp = listTd[0].getText()
-
-        # Get armor
-        shipArmor = listTd[1].getText()
-
-        # Get reload
-        shipReload = listTd[2].getText()
-
-        # Get luck
-        shipLuck = listTd[3].getText()
-
-        # Get firepower
-        shipFirepower = listTd[4].getText()
-
-        # Get torpedo
-        shipTorpedo = listTd[5].getText()
-
-        # Get evasion
-        shipEvasion = listTd[6].getText()
-
-        # Get speed
-        shipSpeed = listTd[7].getText()
-
-        # Get anti-air
-        shipAntiAir = listTd[8].getText()
-
-        # Get aviation
-        shipAviation = listTd[9].getText()
-
-        # Get oil consumption
-        shipOilConsumption = listTd[10].getText()
-
-        # Get accuracy
-        shipAccuracy = listTd[11].getText()
-
-        # Get anti-submarine
-        shipAntiSubmarine = listTd[12].getText()
-
-    # Get equipment
-    tableEquipmentTd = shipPage.find('div', attrs={"style": u"text-align:center;"}).find('table').findAll('td')
-
-    # Equipment 1 efficiency
-    equipment1Efficiency = tableEquipmentTd[1].getText()
-
-    # Equipment 1 type
-    equipment1Type = tableEquipmentTd[2].getText()
-
-    # Equipment 2 efficiency
-    equipment2Efficiency = tableEquipmentTd[4].getText()
-
-    # Equipment 2 type
-    equipment2Type = tableEquipmentTd[5].getText()
-
-    # Equipment 3 efficiency
-    equipment3Efficiency = tableEquipmentTd[7].getText()
-
-    # Equipment 3 type
-    equipment3Type = tableEquipmentTd[8].getText()
+        if tabName == 'Level 120 Retrofit':
+            listTd = tab.find('table').findAll('td')
+            functions.getStatsShip(listTd)
+        elif tabName == 'Level 120':
+            listTd = tab.find('table').findAll('td')
+            functions.getStatsShip(listTd)
 
     # Get Skills
     # file.write("%s\n" % shipName.encode('utf-8'))
@@ -162,4 +96,5 @@ for shipUrl in listUrlShips :
             skillName3 = tableSkillsTh[7].getText()
             skillDescription3 = tableSkillsTd[5].getText()
             if len(skillName3) > 3 :
+                a = 'a'
                 # file.write("Skill description 3 : %s\n" % skillDescription3.encode('utf-8'))
