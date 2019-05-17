@@ -1,0 +1,5 @@
+urlListShips = 'https://azurlane.koumakan.jp/List_of_Ships'
+urlListShipSkills = 'https://azurlane.koumakan.jp/List_of_Ships_with_Skills'
+urlListShipClass = 'https://azurlane.koumakan.jp/List_of_Ships_by_Class'
+urlShipDropTable = 'https://azurlane.koumakan.jp/Ship_Drop_Table'
+baseUrlShips = 'https://azurlane.koumakan.jp'
